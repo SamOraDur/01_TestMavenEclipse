@@ -1,6 +1,7 @@
 package com.durante;
 
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class preferenza extends HttpServlet {
+public class login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
-    public preferenza() {
+    public login() {
         // TODO Auto-generated constructor stub
     }
     
@@ -46,16 +47,30 @@ public class preferenza extends HttpServlet {
 	
 	public void doGet(HttpServletRequest reqt, HttpServletResponse res)
 	{
-		res.setContentType("text/html");
+		
+		
+		
 		String username = reqt.getParameter("username");
 		String password = reqt.getParameter("password");
 		
 		String query = "SELECT username WHERE username = '"+ username + "' AND password = '"+ password + "'";
 		
 		try {
+			res.setContentType("text/html");
+			PrintWriter out = res.getWriter();
+			StringBuffer buffer = new StringBuffer();
 			
 			ResultSet result = conn.createStatement().executeQuery(query);
-			result.next();
+			if(result.next()) {
+				buffer.append("<html><title>Logged user: "+username+"</title>");
+				buffer.append("<body><form name='preferenza' action='http://localhost:8080/01_TestMavenEclipse/preferenza' method='GET'>");
+				buffer.append("<p>Nome Prof.: <INPUT TYPE='text' NAME='nomeProf' SIZE=30></p>");
+				buffer.append("<p>Cognome Prof.: <INPUT TYPE='text' NAME='cognomeProf' SIZE=30></p>");
+				buffer.append("<p>Materia: <INPUT TYPE='text' NAME='materia' SIZE=30></p>");
+				buffer.append("<p><INPUT TYPE='submit'>Invia</p>");
+				buffer.append("<p><INPUT TYPE='reset' NAME='resetbutton' VALUE='Clear data'> </p>");
+				buffer.append("</form></body></html>");
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
