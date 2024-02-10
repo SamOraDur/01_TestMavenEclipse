@@ -49,6 +49,20 @@ public class preferenza extends HttpServlet {
 		String nomeProf = reqt.getParameter("nomeProf");
 		String cognomeProf = reqt.getParameter("cognomeProf");
 		String materia = reqt.getParameter("materia");
+
+		String sql = "INSERT INTO preferenze (nomeProf, cognomeProf, materia) VALUES (nomeProf, cognomeProf, materia)";
+		PreparedStatement statement = conn.prepareStatement(sql);
+
+		int rowsInserted = statement.executeUpdate();
+
+		if (rowsInserted > 0) {
+		    System.out.println("Preferenza inserita!");
+		} else {
+		    System.out.println("Errore.");
+		}
+
+		statement.close();
+		conn.close();
 		
 	}
 	public void doPost(HttpServletRequest reqt, HttpServletResponse res)
