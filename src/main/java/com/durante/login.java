@@ -53,7 +53,7 @@ public class login extends HttpServlet {
 		String username = reqt.getParameter("username");
 		String password = reqt.getParameter("password");
 		
-		String query = "SELECT username WHERE username = '"+ username + "' AND password = '"+ password + "'";
+		String query = "SELECT username FROM utente WHERE username = '"+ username + "' AND password = '"+ password + "'";
 		
 		try {
 			res.setContentType("text/html");
@@ -67,16 +67,18 @@ public class login extends HttpServlet {
 				buffer.append("<p>Nome Prof.: <INPUT TYPE='text' NAME='nomeProf' SIZE=30></p>");
 				buffer.append("<p>Cognome Prof.: <INPUT TYPE='text' NAME='cognomeProf' SIZE=30></p>");
 				buffer.append("<p>Materia: <INPUT TYPE='text' NAME='materia' SIZE=30></p>");
-				buffer.append("<p><INPUT TYPE='submit'>Invia</p>");
+				buffer.append("<p><INPUT TYPE='submit'></p>");
 				buffer.append("<p><INPUT TYPE='reset' NAME='resetbutton' VALUE='Clear data'> </p>");
 				buffer.append("</form></body></html>");
 				
+				out.println(buffer.toString());
 				out.close();
 			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 	}
 	public void doPost(HttpServletRequest reqt, HttpServletResponse res)
