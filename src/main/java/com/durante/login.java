@@ -70,6 +70,8 @@ public class login extends HttpServlet {
 				buffer.append("<p><INPUT TYPE='submit'>Invia</p>");
 				buffer.append("<p><INPUT TYPE='reset' NAME='resetbutton' VALUE='Clear data'> </p>");
 				buffer.append("</form></body></html>");
+				
+				out.close();
 			}
 			
 		}catch(Exception e) {
